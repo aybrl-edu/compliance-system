@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/compliance-system.iml" filepath="$PROJECT_DIR$/.idea/modules/compliance-system.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/compliance-system-build.iml" filepath="$PROJECT_DIR$/.idea/modules/compliance-system-build.iml" />
     </modules>
   </component>
 </project>
