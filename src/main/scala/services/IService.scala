@@ -1,6 +1,8 @@
 package services
 
+import models.UserInfo
+
 trait IService {
-  def execute(): Boolean
+  def execute(userData : List[UserInfo]): List[UserInfo]
 }
 

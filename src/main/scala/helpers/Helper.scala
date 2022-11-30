@@ -1,15 +1,20 @@
 package helpers
 
-import models.Command
+import models.{Command, UserInfo}
+import org.apache.spark.sql.DataFrame
 
 import scala.util.{Failure, Success, Try}
 
 
 object Helper {
-  /**
-   * @todo
-   */
+  // @todo
   def parseCommand(command: Array[String]): Try[Command] = {
-    return null
+    val cmd = new Command()
+    null
+  }
+
+  // @todo
+  def dataFrameToCustom(data : DataFrame) : Try[List[UserInfo]] = {
+    null
   }
 }
