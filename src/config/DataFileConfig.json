@@ -1,24 +1,24 @@
 {
   "columns" : [
       {
-        "name": "IdClient",
-        "type": "Long"
+        "name": "idClient",
+        "typeOf": "Long"
       },
       {
         "name": "FirstName",
-        "type": "String"
+        "typeOf": "String"
       },
       {
         "name": "LastName",
-        "type": "String"
+        "typeOf": "String"
       },
       {
         "name": "Address",
-        "type": "String"
+        "typeOf": "String"
       },
       {
         "name": "SubscriptionDate",
-        "type": "DateTime"
+        "typeOf": "DateTime"
       }
   ]
 }

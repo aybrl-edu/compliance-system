@@ -6,16 +6,13 @@ import workers.HDFSFileManager
 import scala.util.{Failure, Success}
 
 object Orchestrator {
-
-  val hdfsPath = ""
-
   def executeCommand(command : Command) : Boolean = {
-    HDFSFileManager.readCSVFromHDFS(hdfsPath) match {
+    HDFSFileManager.readCSVFromHDFS(command.getHDFSUrlFormatted) match {
       case Success(dataFrame: DataFrame) => {
         Helper.dataFrameToCustom(dataFrame) match {
           case Success(usersData) => {
             val updatedUsersInfo = command.getService.execute(usersData)
-            HDFSFileManager.writeCSVToHDFS(hdfsPath, updatedUsersInfo)
+            HDFSFileManager.writeCSVToHDFS(command.getHDFSUrlFormatted, updatedUsersInfo)
           }
           case Failure(exception) => {
             println("Exception while processing user data")

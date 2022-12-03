@@ -16,8 +16,13 @@ object Main {
         if(hasExecuted) println("Command has been successfully executed!")
         else println("Command was not executed! Halting...")
       }
-      case Failure(exception) => {}
+      case Failure(exception) =>
         println("Malformed command!")
     }
+  }
+
+  def main2(args: Array[String]): Unit = {
+    val scheme = Helper.sparkSchemeFromJSON()
+    println(scheme)
   }
 }
