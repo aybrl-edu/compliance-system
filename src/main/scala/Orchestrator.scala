@@ -18,7 +18,9 @@ object Orchestrator {
 
         // Saving changes
         try {
-          val hasWritten : Boolean = HDFSFileManager.writeCSVToHDFS(command.getHDFSUrlFormatted, updatedDF)
+          val hasWritten : Boolean = HDFSFileManager.writeCSVToHDFS(command.getHDFSUrlFormatted,
+            command.getHDFSTempUrlFormatted,
+            updatedDF)
 
           // log before
           println("DF after command execution")

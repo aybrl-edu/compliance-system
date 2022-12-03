@@ -46,4 +46,8 @@ class Command {
   def getHDFSUrlFormatted : String = {
     String.format("hdfs://%s:9000/%s/", hdfsIP, hdfsFilePath)
   }
+
+  def getHDFSTempUrlFormatted: String = {
+    String.format("hdfs://%s:9000/%s/temp", hdfsIP)
+  }
 }
