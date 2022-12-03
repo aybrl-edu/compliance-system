@@ -6,7 +6,7 @@ class Command {
   var service : IService = null
   var uid : Long = 0
   var hdfsIP : String = "172.31.252.170"
-  var hdfsFilePath : String = "compliance_system"
+  var hdfsFilePath : String = "compliance_system/datacsv"
   var fileName : String = "UserDataSample.csv"
 
 
@@ -44,6 +44,6 @@ class Command {
   }
 
   def getHDFSUrlFormatted : String = {
-    String.format("hdfs://%s:9000/%s/%s", hdfsIP, hdfsFilePath, fileName)
+    String.format("hdfs://%s:9000/%s", hdfsIP, hdfsFilePath)
   }
 }
