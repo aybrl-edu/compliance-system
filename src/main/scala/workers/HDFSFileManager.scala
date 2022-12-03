@@ -1,7 +1,6 @@
 package workers
 
 import helpers.Helper
-import models.UserInfo
 import org.apache.spark.sql.{DataFrame, SparkSession}
 import scala.util.{Failure, Success, Try}
 

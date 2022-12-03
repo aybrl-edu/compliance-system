@@ -1,8 +1,7 @@
 package helpers
 
 import configs.{ArgConfig, ConfigElement, DataFileConfig}
-import models.{Command, UserInfo}
-import org.apache.spark.sql.DataFrame
+import models.{Command}
 import org.apache.spark.sql.types.{BooleanType, DataType, DateType, DoubleType, FloatType, IntegerType, LongType, StringType, StructField, StructType}
 import scopt.{OParser, OParserBuilder}
 import spray.json._

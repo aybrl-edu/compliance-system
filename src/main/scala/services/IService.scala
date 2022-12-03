@@ -1,6 +1,5 @@
 package services
 
-import models.UserInfo
 import org.apache.spark.sql.DataFrame
 
 trait IService {
