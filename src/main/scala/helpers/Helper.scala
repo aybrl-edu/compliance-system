@@ -34,7 +34,7 @@ object Helper {
       opt[String]('i', "hdfsIP")
         .valueName("<hdfsIP>")
         .action((x, c) => c.copy(hdfsIP = x))
-        .text("custom hdfs ip, default : 172.31.253.170"),
+        .text("custom hdfs ip, default : 172.31.252.170"),
 
       opt[String]('p', "hdfsPath")
         .valueName("<hdfsPath>")
