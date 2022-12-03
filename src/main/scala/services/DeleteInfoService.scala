@@ -4,6 +4,6 @@ import org.apache.spark.sql.DataFrame
 
 class DeleteInfoService extends IService {
   override def execute(df: DataFrame, uid: Long): DataFrame = {
-    df.filter(s"idClient != ${uid}")
+    df.filter(s"idClient =!= ${uid}")
   }
 }

@@ -8,6 +8,7 @@ class Command {
   var hdfsIP : String = "172.31.252.170"
   var hdfsFilePath : String = "compliance_system/datacsv"
   var fileName : String = "UserDataSample.csv"
+  var readOnly : Boolean = false
 
 
   def getUID : Long = {
@@ -16,6 +17,10 @@ class Command {
 
   def getService: IService = {
     service
+  }
+
+  def isReadOnly: Boolean = {
+    readOnly
   }
   def setService(newService: IService): Unit = {
     service = newService
@@ -43,6 +48,11 @@ class Command {
     else if(cmd == "hash") service = new HashInfoService()
   }
 
+  def setReadOnly(ro : Boolean): Unit = {
+    readOnly = ro
+  }
+
+
   def getHDFSUrlFormatted : String = {
     String.format("hdfs://%s:9000/%s/", hdfsIP, hdfsFilePath)
   }
@@ -50,4 +60,5 @@ class Command {
   def getHDFSTempUrlFormatted: String = {
     String.format("hdfs://%s:9000/temp/", hdfsIP)
   }
+
 }
