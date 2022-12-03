@@ -11,15 +11,17 @@ import scala.util.{Failure, Success, Try}
 object HDFSFileManager {
   val sparkHost : String = "local"
 
-  // Spark Session
-  val sparkSession: SparkSession = SparkSession
-    .builder
-    .master(sparkHost)
-    .appName("compliance-system")
-    .enableHiveSupport()
-    .getOrCreate()
-
   def readCSVFromHDFS(hdfsPath: String): Try[DataFrame] = {
+    println(s"${"!" * 25} READ FILE START ${"!" * 25}")
+
+    // Spark Session
+    val sparkSession: SparkSession = SparkSession
+      .builder
+      .master(sparkHost)
+      .appName("compliance-system")
+      .enableHiveSupport()
+      .getOrCreate()
+
     // Load data from HDFS
     try{
       val df = sparkSession.read
@@ -29,11 +31,13 @@ object HDFSFileManager {
         .option("mode", "DROPMALFORMED")
         .load(hdfsPath)
 
-      println("hwehw")
 
+      sparkSession.close()
       Success(df)
     } catch {
-      case _: Throwable => Failure(new Throwable("cannot read file from HDFS"))
+      case _: Throwable =>
+        sparkSession.close()
+        Failure(new Throwable("cannot read file from HDFS"))
     }
   }
 
