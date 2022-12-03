@@ -8,11 +8,6 @@ lazy val root = (project in file("."))
   )
 
 libraryDependencies ++= Seq(
-  // scalaj
-  "org.scalaj" %% "scalaj-http" % "2.4.2",
-  // json4s
-  "org.json4s" %% "json4s-jackson" % "4.0.6",
-  "org.json4s" %% "json4s-native" % "4.0.6",
   // scala-csv
   "com.github.tototoshi" %% "scala-csv" % "1.3.10",
   // spark

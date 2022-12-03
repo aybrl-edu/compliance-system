@@ -16,6 +16,6 @@ object HDFSFileManager {
   }
 
   def writeCSVToHDFS(hdfsPath: String, userData : List[UserInfo]): Boolean = {
-    return null
+    return false
   }
 }
