@@ -31,6 +31,8 @@ object HDFSFileManager {
         .option("mode", "DROPMALFORMED")
         .load(hdfsPath)
 
+      df.cache()
+
       Success(df)
     } catch {
       case _: Throwable =>
@@ -43,13 +45,26 @@ object HDFSFileManager {
     println(s"${"-" * 25} SAVING FILE STARTED ${"-" * 25}")
 
     try {
-
-      // Write to final
+      // Save to temp
       df.write
         .format("csv")
         .option("header", "true")
         .mode(SaveMode.Overwrite)
-        .option("partitionOverwriteMode", "dynamic")
+        .save(hdfsTempPath)
+
+      // Read from temp
+      val temp_df = sparkSession.read
+        .schema(Helper.sparkSchemeFromJSON())
+        .format("csv")
+        .load(hdfsTempPath)
+
+      df.unpersist()
+
+      // Write to final
+      temp_df.write
+        .format("csv")
+        .option("header", "true")
+        .mode(SaveMode.Overwrite)
         .save(hdfsPath)
 
       true
