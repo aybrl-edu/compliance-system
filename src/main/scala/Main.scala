@@ -20,9 +20,4 @@ object Main {
         println("Malformed command!")
     }
   }
-
-  def main2(args: Array[String]): Unit = {
-    val scheme = Helper.sparkSchemeFromJSON()
-    println(scheme)
-  }
 }
