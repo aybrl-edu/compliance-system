@@ -39,13 +39,38 @@ object HDFSFileManager {
     }
   }
 
-  def writeCSVToHDFS(hdfsPath: String, df : DataFrame): Boolean = {
+  def writeCSVToHDFS(hdfsPath: String, hdfsTempPath : String, df : DataFrame): Boolean = {
     println(s"${"-" * 25} SAVING FILE STARTED ${"-" * 25}")
-    df.write
-      .format("csv")
-      .option("header", "true")
-      .mode(SaveMode.Overwrite)
-      .save(hdfsPath)
-    false
+
+    try {
+      // Save to temp
+      df.write
+        .format("csv")
+        .option("header", "true")
+        .mode(SaveMode.Overwrite)
+        .save(hdfsTempPath)
+
+      // Read from temp
+      val temp_df = sparkSession.read
+        .schema(Helper.sparkSchemeFromJSON())
+        .format("csv")
+        .load(hdfsTempPath)
+
+      // Write to final
+      temp_df.write
+        .format("csv")
+        .option("header", "true")
+        .mode(SaveMode.Overwrite)
+        .save(hdfsPath)
+
+      true
+    }
+    catch {
+      case _: Throwable =>
+        println("error while saving data")
+        false
+    }
+
+
   }
 }
