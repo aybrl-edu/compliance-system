@@ -17,18 +17,26 @@ object Orchestrator {
         val updatedDF = command.getService.execute(df, command.getUID)
 
         // Saving changes
-        val hasWritten : Boolean = HDFSFileManager.writeCSVToHDFS(command.getHDFSUrlFormatted, updatedDF)
+        try {
+          val hasWritten : Boolean = HDFSFileManager.writeCSVToHDFS(command.getHDFSUrlFormatted, updatedDF)
 
-        // log before
-        println("DF after command execution")
-        updatedDF.show(20)
-        println(s"${"-" * 20}")
+          // log before
+          println("DF after command execution")
+          updatedDF.show(20)
+          println(s"${"-" * 20}")
 
-        // Verification
-        if(!hasWritten) println("Exception while saving data to HDFS")
-        hasWritten
+          // Close
+          if (!hasWritten) println("Exception while saving data to HDFS")
+          hasWritten
+
+        } catch {
+          case _: Throwable =>
+            println("Exception while saving data to HDFS")
+            false
+        }
+
       }
-      case Failure(exception) => {
+      case Failure(_) => {
         println("Exception while retrieving user data from HDFS")
         false
       }
