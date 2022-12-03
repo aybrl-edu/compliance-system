@@ -23,6 +23,7 @@ object HDFSFileManager {
     println(s"${"-" * 25} READING FILE STARTED ${"-" * 25}")
 
     sparkSession.sparkContext.setCheckpointDir("tmp")
+    sparkSession.sparkContext.setLogLevel("ERROR")
 
     // Load data from HDFS
     try{
@@ -32,17 +33,17 @@ object HDFSFileManager {
         .option("header", "true")
         .option("mode", "DROPMALFORMED")
         .load(hdfsPath)
-
       Success(df)
     } catch {
       case _: Throwable =>
-        sparkSession.close()
         Failure(new Throwable("cannot read file from HDFS"))
     }
   }
 
   def writeCSVToHDFS(hdfsPath: String, hdfsTempPath : String, df : DataFrame): Boolean = {
     println(s"${"-" * 25} SAVING FILE STARTED ${"-" * 25}")
+
+    sparkSession.sparkContext.setLogLevel("ERROR")
 
     try {
       // Write to final
@@ -58,7 +59,5 @@ object HDFSFileManager {
         println("error while saving data")
         false
     }
-
-
   }
 }
