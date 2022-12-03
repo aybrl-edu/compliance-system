@@ -1,14 +1,17 @@
 package helpers
 
-import configs.ArgConfig
+import configs.{ArgConfig, ConfigElement, DataFileConfig}
 import models.{Command, UserInfo}
 import org.apache.spark.sql.DataFrame
+import org.apache.spark.sql.types.{BooleanType, DataType, DateType, DoubleType, FloatType, IntegerType, LongType, StringType, StructField, StructType}
 import scopt.{OParser, OParserBuilder}
+import spray.json._
 
 import scala.util.{Failure, Success, Try}
 
 
 object Helper {
+  // Scopt Parser
   val builder: OParserBuilder[ArgConfig] = OParser.builder[ArgConfig]
 
   val parser: OParser[Unit, ArgConfig] = {
@@ -34,6 +37,10 @@ object Helper {
       })
     )
   }
+
+  // Spray Json
+
+
   def parseCommand(args: Array[String]): Try[Command] = {
     val command = new Command()
 
@@ -51,4 +58,36 @@ object Helper {
   def dataFrameToCustom(data : DataFrame) : Try[List[UserInfo]] = {
     null
   }
+
+  def sparkSchemeFromJSON(): StructType = {
+    // Basic type mapping map
+    val stringToType = Map[String, DataType](
+      "String" -> StringType,
+      "Double" -> DoubleType,
+      "Float" -> FloatType,
+      "Int" -> IntegerType,
+      "Boolean" -> BooleanType,
+      "Long" -> LongType,
+      "DateTime" -> DateType
+    )
+
+    // Load JSON From file
+    val source = scala.io.Source.fromFile("src/config/DataFileConfig.json")
+    val lines = try source.mkString finally source.close()
+    val json = lines.parseJson
+
+    // Parse to case class
+    import configs.JsonProtocol._
+    val datafileConfig = json.convertTo[DataFileConfig[ConfigElement]]
+
+    // Convert case class to StructType
+    var structSeq: Seq[StructField] = Seq()
+    datafileConfig.columns.foreach(configElement => {
+      structSeq = structSeq :+ StructField(configElement.name, stringToType(configElement.typeOf), nullable = false)
+    })
+    val schema = StructType(structSeq)
+    schema
+  }
 }
+
+

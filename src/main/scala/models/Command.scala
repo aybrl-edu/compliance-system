@@ -4,7 +4,7 @@ import services.{DeleteInfoService, HashInfoService, IService}
 
 class Command {
   var service : IService = null
-  var uid : Long = null
+  var uid : Long = 0
 
 
   def getUID : Long = {

@@ -1,8 +1,5 @@
 package configs
 
-final case class DataFileConfig(IdClient : String,
-                          FirstName : String,
-                          LastName : String,
-                          Address : String,
-                          SubscriptionDate : String
-                         )
+case class DataFileConfig[ConfigElement](columns : List[ConfigElement])
+
+case class ConfigElement(name : String, typeOf : String)
