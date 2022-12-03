@@ -31,7 +31,6 @@ object HDFSFileManager {
         .option("mode", "DROPMALFORMED")
         .load(hdfsPath)
 
-      df.show(10)
       Success(df)
     } catch {
       case _: Throwable =>

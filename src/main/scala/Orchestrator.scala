@@ -9,6 +9,8 @@ object Orchestrator {
   def executeCommand(command : Command) : Boolean = {
     HDFSFileManager.readCSVFromHDFS(command.getHDFSUrlFormatted) match {
       case Success(dataFrame: DataFrame) => {
+        val fDataFrame = dataFrame.filter(s"IdClient < 1000")
+        fDataFrame.show(10)
         Helper.dataFrameToCustom(dataFrame) match {
           case Success(usersData) => {
             val updatedUsersInfo = command.getService.execute(usersData)
