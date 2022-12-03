@@ -41,7 +41,8 @@ object HDFSFileManager {
 
   def writeCSVToHDFS(hdfsPath: String, df : DataFrame): Boolean = {
     println(s"${"-" * 25} SAVING FILE STARTED ${"-" * 25}")
-    df.write
+    df.coalesce(1)
+      .write
       .format("csv")
       .option("header", "true")
       .mode(SaveMode.Overwrite)
