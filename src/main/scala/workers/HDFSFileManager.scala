@@ -50,6 +50,8 @@ object HDFSFileManager {
         .mode(SaveMode.Overwrite)
         .save(hdfsTempPath)
 
+      df.unpersist()
+
       // Read from temp
       val temp_df = sparkSession.read
         .schema(Helper.sparkSchemeFromJSON())
