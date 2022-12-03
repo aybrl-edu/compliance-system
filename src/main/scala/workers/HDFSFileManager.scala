@@ -22,6 +22,8 @@ object HDFSFileManager {
   def readCSVFromHDFS(hdfsPath: String): Try[DataFrame] = {
     println(s"${"-" * 25} READING FILE STARTED ${"-" * 25}")
 
+    sparkSession.sparkContext.setCheckpointDir("tmp")
+
     // Load data from HDFS
     try{
       val df = sparkSession.read
@@ -30,8 +32,6 @@ object HDFSFileManager {
         .option("header", "true")
         .option("mode", "DROPMALFORMED")
         .load(hdfsPath)
-
-      df.cache()
 
       Success(df)
     } catch {
@@ -45,30 +45,13 @@ object HDFSFileManager {
     println(s"${"-" * 25} SAVING FILE STARTED ${"-" * 25}")
 
     try {
-      val rand = new scala.util.Random
-      val tempPath = hdfsTempPath + "/tmp_" + rand.nextInt()
-
-      // Save to temp
-      df.write
-        .format("csv")
-        .option("header", "true")
-        .save(tempPath)
-
-      // Read from temp
-      val temp_df = sparkSession.read
-        .schema(Helper.sparkSchemeFromJSON())
-        .format("csv")
-        .load(tempPath)
-
-      df.unpersist()
-
       // Write to final
-      temp_df.write
+      df.checkpoint(true)
+        .write
         .format("csv")
         .option("header", "true")
         .mode(SaveMode.Overwrite)
         .save(hdfsPath)
-
       true
     }
     catch {
