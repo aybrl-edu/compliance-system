@@ -70,12 +70,6 @@ object Helper {
         Failure(new Throwable("program args invalid"))
     }
   }
-
-  // @todo
-  def dataFrameToCustom(data : DataFrame) : Try[List[UserInfo]] = {
-    null
-  }
-
   def sparkSchemeFromJSON(): StructType = {
     // Basic type mapping map
     val stringToType = Map[String, DataType](

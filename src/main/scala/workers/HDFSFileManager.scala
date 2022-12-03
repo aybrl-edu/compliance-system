@@ -11,16 +11,16 @@ import scala.util.{Failure, Success, Try}
 object HDFSFileManager {
   val sparkHost : String = "local"
 
-  def readCSVFromHDFS(hdfsPath: String): Try[DataFrame] = {
-    println(s"${"!" * 25} READ FILE START ${"!" * 25}")
+  // Spark Session
+  val sparkSession: SparkSession = SparkSession
+    .builder
+    .master(sparkHost)
+    .appName("compliance-system")
+    .enableHiveSupport()
+    .getOrCreate()
 
-    // Spark Session
-    val sparkSession: SparkSession = SparkSession
-      .builder
-      .master(sparkHost)
-      .appName("compliance-system")
-      .enableHiveSupport()
-      .getOrCreate()
+  def readCSVFromHDFS(hdfsPath: String): Try[DataFrame] = {
+    println(s"${"-" * 25} READING FILE STARTED ${"-" * 25}")
 
     // Load data from HDFS
     try{
@@ -39,7 +39,12 @@ object HDFSFileManager {
     }
   }
 
-  def writeCSVToHDFS(hdfsPath: String, userData : List[UserInfo]): Boolean = {
+  def writeCSVToHDFS(hdfsPath: String, df : DataFrame): Boolean = {
+    println(s"${"-" * 25} SAVING FILE STARTED ${"-" * 25}")
+    df.write
+      .format("csv")
+      .option("header", "true")
+      .save(hdfsPath)
     false
   }
 }
