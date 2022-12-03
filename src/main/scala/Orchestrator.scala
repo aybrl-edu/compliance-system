@@ -15,6 +15,7 @@ object Orchestrator {
 
         // Command execute
         val updatedDF = command.getService.execute(df, command.getUID)
+        df.unpersist()
 
         // Saving changes
         try {
