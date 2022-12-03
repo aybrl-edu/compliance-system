@@ -10,9 +10,12 @@ object Orchestrator {
       case Success(df: DataFrame) => {
 
         println("DF before command execution")
-        df.show(20)
+        df.show()
         println(s"${"-"*20}")
 
+        if(command.isReadOnly) {
+          return true
+        }
         // Command execute
         val updatedDF = command.getService.execute(df, command.getUID)
 

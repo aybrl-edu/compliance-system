@@ -45,6 +45,10 @@ object Helper {
         .action((x, c) => c.copy(filename = x))
         .text("custom filename, default : UserDataSample.csv"),
 
+      opt[Boolean]('r', "read")
+        .valueName("<read>")
+        .action((x, c) => c.copy(read = x))
+        .text("read data"),
 
       checkConfig(c => {
         val allowedActions = List("delete", "hash")
@@ -61,6 +65,7 @@ object Helper {
       case Some(config) =>
         command.setService(config.action)
         command.setUID(config.uid)
+        command.setReadOnly(config.read)
         if(config.hdfsIP != null) command.setHDFS_IP(config.hdfsIP)
         if(config.hdfsPath != null) command.setHdfsFilePath(config.hdfsPath)
         if(config.filename != null) command.setFileName(config.filename)
