@@ -31,8 +31,7 @@ object HDFSFileManager {
         .option("mode", "DROPMALFORMED")
         .load(hdfsPath)
 
-
-      sparkSession.close()
+      df.show(10)
       Success(df)
     } catch {
       case _: Throwable =>
@@ -42,6 +41,6 @@ object HDFSFileManager {
   }
 
   def writeCSVToHDFS(hdfsPath: String, userData : List[UserInfo]): Boolean = {
-    return false
+    false
   }
 }
