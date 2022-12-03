@@ -24,7 +24,7 @@ object Orchestrator {
 
           // log before
           println("DF after command execution")
-          updatedDF.show(20)
+          //updatedDF.show(20)
           println(s"${"-" * 20}")
 
           // Close
