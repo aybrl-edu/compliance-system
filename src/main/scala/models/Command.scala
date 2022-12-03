@@ -48,6 +48,6 @@ class Command {
   }
 
   def getHDFSTempUrlFormatted: String = {
-    String.format("hdfs://%s:9000/%s/temp", hdfsIP)
+    String.format("hdfs://%s:9000/tmp/", hdfsIP)
   }
 }
