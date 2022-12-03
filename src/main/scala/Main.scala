@@ -3,7 +3,7 @@ import helpers.Helper
 import scala.util.{Success, Failure}
 
 object Main {
-  def main2(args: Array[String]): Unit = {
+  def main(args: Array[String]): Unit = {
     // Parsing Command
     Helper.parseCommand(args) match {
       case Success(command) => {
@@ -16,12 +16,12 @@ object Main {
         if(hasExecuted) println("Command has been successfully executed!")
         else println("Command was not executed! Halting...")
       }
-      case Failure(exception) => {}
+      case Failure(exception) =>
         println("Malformed command!")
     }
   }
 
-  def main(args: Array[String]): Unit = {
+  def main2(args: Array[String]): Unit = {
     val scheme = Helper.sparkSchemeFromJSON()
     println(scheme)
   }

@@ -27,19 +27,33 @@ object Helper {
 
       opt[String]('a', "action")
         .required()
-        .valueName("<action> <- ['delete', 'hash']")
+        .valueName("<delete> | <hash>")
         .action((x, c) => c.copy(action = x))
         .text("action is required"),
+
+      opt[String]('i', "hdfsIP")
+        .valueName("<hdfsIP>")
+        .action((x, c) => c.copy(hdfsIP = x))
+        .text("custom hdfs ip, default : 172.31.253.170"),
+
+      opt[String]('p', "hdfsPath")
+        .valueName("<hdfsPath>")
+        .action((x, c) => c.copy(hdfsPath = x))
+        .text("custom data path, default : compliance_system"),
+
+      opt[String]('f', "filename")
+        .valueName("<filename>")
+        .action((x, c) => c.copy(filename = x))
+        .text("custom filename, default : UserDataSample.csv"),
+
+
       checkConfig(c => {
         val allowedActions = List("delete", "hash")
         if (!allowedActions.contains(c.action)) failure("action must be in ['delete', 'hash']")
-        else success
+        success
       })
     )
   }
-
-  // Spray Json
-
 
   def parseCommand(args: Array[String]): Try[Command] = {
     val command = new Command()
@@ -48,6 +62,9 @@ object Helper {
       case Some(config) =>
         command.setService(config.action)
         command.setUID(config.uid)
+        if(config.hdfsIP != null) command.setHDFS_IP(config.hdfsIP)
+        if(config.hdfsPath != null) command.setHdfsFilePath(config.hdfsPath)
+        if(config.filename != null) command.setFileName(config.filename)
         Success(command)
       case _ =>
         Failure(new Throwable("program args invalid"))
@@ -85,8 +102,7 @@ object Helper {
     datafileConfig.columns.foreach(configElement => {
       structSeq = structSeq :+ StructField(configElement.name, stringToType(configElement.typeOf), nullable = false)
     })
-    val schema = StructType(structSeq)
-    schema
+    StructType(structSeq)
   }
 }
 

@@ -3,18 +3,16 @@ package workers
 import helpers.Helper
 import models.UserInfo
 import org.apache.spark.sql.{DataFrame, SparkSession}
-
-import scala.util.control.Exception
 import scala.util.{Failure, Success, Try}
 
 /**
- * The aim of this class is to encapsulate the logic responsible for reading the data of a given csv file
+ * The aim of this class is to encapsulate the logic responsible for reading/writing the data of a given csv file
  */
 object HDFSFileManager {
   val sparkHost : String = "local"
 
   // Spark Session
-  val sparkSession = SparkSession
+  val sparkSession: SparkSession = SparkSession
     .builder
     .master(sparkHost)
     .appName("compliance-system")
@@ -30,6 +28,8 @@ object HDFSFileManager {
         .option("header", "true")
         .option("mode", "DROPMALFORMED")
         .load(hdfsPath)
+
+      println("hwehw")
 
       Success(df)
     } catch {
