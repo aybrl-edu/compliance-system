@@ -1,7 +1,8 @@
 package workers
 
 import helpers.Helper
-import org.apache.spark.sql.{DataFrame, SparkSession}
+import org.apache.spark.sql.{DataFrame, SaveMode, SparkSession}
+
 import scala.util.{Failure, Success, Try}
 
 /**
@@ -43,6 +44,7 @@ object HDFSFileManager {
     df.write
       .format("csv")
       .option("header", "true")
+      .mode(SaveMode.Overwrite)
       .save(hdfsPath)
     false
   }
