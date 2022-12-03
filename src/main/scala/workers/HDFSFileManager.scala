@@ -49,7 +49,6 @@ object HDFSFileManager {
       df.checkpoint(true)
         .write
         .format("csv")
-        .option("header", "true")
         .mode(SaveMode.Overwrite)
         .save(hdfsPath)
       true
