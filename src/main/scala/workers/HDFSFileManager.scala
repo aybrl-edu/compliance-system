@@ -45,18 +45,20 @@ object HDFSFileManager {
     println(s"${"-" * 25} SAVING FILE STARTED ${"-" * 25}")
 
     try {
+      val rand = new scala.util.Random
+      val tempPath = hdfsTempPath + "/tmp_" + rand.nextInt()
+
       // Save to temp
       df.write
         .format("csv")
         .option("header", "true")
-        .mode(SaveMode.Overwrite)
-        .save(hdfsTempPath)
+        .save(tempPath)
 
       // Read from temp
       val temp_df = sparkSession.read
         .schema(Helper.sparkSchemeFromJSON())
         .format("csv")
-        .load(hdfsTempPath)
+        .load(tempPath)
 
       df.unpersist()
 
