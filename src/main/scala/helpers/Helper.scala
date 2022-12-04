@@ -41,7 +41,7 @@ object Helper {
       opt[String]('f', "filename")
         .valueName("<filename>")
         .action((x, c) => c.copy(filename = x))
-        .text("custom filename, default : UserDataSample.csv"),
+        .text("custom filename without extension"),
 
       opt[Boolean]('r', "read")
         .valueName("<read>")
