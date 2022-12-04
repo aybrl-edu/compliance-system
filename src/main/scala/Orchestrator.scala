@@ -6,7 +6,7 @@ import scala.util.{Failure, Success}
 
 object Orchestrator {
   def executeCommand(command : Command) : Boolean = {
-    HDFSFileManager.readCSVFromHDFS(command.getHDFSUrlFormatted) match {
+    HDFSFileManager.readCSVFromHDFS(command.getHDFSUrlFormatted, command.getFileType) match {
       case Success(df: DataFrame) =>
         df.show()
 
@@ -17,7 +17,10 @@ object Orchestrator {
 
         try {
           // Saving changes
-          val hasWritten : Boolean = HDFSFileManager.writeCSVToHDFS(command.getHDFSUrlFormatted, updatedDF)
+          val hasWritten : Boolean = HDFSFileManager.writeCSVToHDFS(command.getHDFSUrlFormatted,
+            command.getFileType,
+            updatedDF)
+
           if (!hasWritten) println("Exception while saving data to HDFS")
           hasWritten
 

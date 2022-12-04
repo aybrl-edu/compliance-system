@@ -48,11 +48,19 @@ object Helper {
         .action((x, c) => c.copy(read = x))
         .text("read data"),
 
+      opt[String]('t', "fileType")
+        .valueName("<fileType>")
+        .action((x, c) => c.copy(fileType = x))
+        .text("file type -> CSV (Default) | PARQUET"),
+
       checkConfig(c => {
         val allowedActions = List("delete", "hash")
-        if (!allowedActions.contains(c.action)) failure("action must be in ['delete', 'hash']")
-        success
+        val allowedTypes = List("csv", "parquet")
 
+        if(!c.read && (c.uid == -1 || c.action == "")) failure("no command or action was specified")
+        else if (c.action != "" && !allowedActions.contains(c.action)) failure("action must be in ['delete', 'hash']")
+        else if (!allowedTypes.contains(c.fileType)) failure("type must be in ['csv', 'parquet']")
+        else success
       })
     )
   }

@@ -7,12 +7,17 @@ class Command {
   var uid : Long = 0
   var hdfsIP : String = "172.31.252.170"
   var hdfsFilePath : String = "compliance_system/datacsv"
-  var fileName : String = "UserDataSample.csv"
+  var fileName : String = ""
+  var fileType : String = "csv"
   var readOnly : Boolean = false
 
 
   def getUID : Long = {
     uid
+  }
+
+  def getFileType : String = {
+    fileType
   }
 
   def getService: IService = {
@@ -42,6 +47,10 @@ class Command {
     fileName = newFileName
   }
 
+  def setFileType (newFileType: String): Unit = {
+    fileType = newFileType
+  }
+
   def setService(cmd: String): Unit = {
     // @todo : replace w/ switch and custom enum for services
     if(cmd == "delete") service = new DeleteInfoService()
@@ -54,7 +63,9 @@ class Command {
 
 
   def getHDFSUrlFormatted : String = {
-    String.format("hdfs://%s:9000/%s/", hdfsIP, hdfsFilePath)
+    var path = String.format("hdfs://%s:9000/%s/", hdfsIP, hdfsFilePath)
+    if(fileName != "") path = path + s"${fileName}/.${fileType}"
+    path
   }
 
 }

@@ -19,10 +19,11 @@ object HDFSFileManager {
     .enableHiveSupport()
     .getOrCreate()
 
-  def readCSVFromHDFS(hdfsPath: String): Try[DataFrame] = {
+  def readCSVFromHDFS(hdfsPath: String, fileType : String): Try[DataFrame] = {
     // Log
-    println(s"${"-" * 25} READING FILE STARTED ${"-" * 25}")
-    println(s"${" " * 9} reading from ${hdfsPath}")
+    println(s"\n ${"-" * 25} READING FILE STARTED ${"-" * 25}")
+    println(s"...")
+    println(s"reading from ${hdfsPath} ...")
 
     // Spark-session context
     sparkSession.sparkContext.setCheckpointDir("tmp")
@@ -32,7 +33,7 @@ object HDFSFileManager {
     try{
       val df = sparkSession.read
         .schema(Helper.sparkSchemeFromJSON())
-        .format("csv")
+        .format(fileType)
         .option("header", "true")
         .option("mode", "DROPMALFORMED")
         .load(hdfsPath)
@@ -43,7 +44,7 @@ object HDFSFileManager {
     }
   }
 
-  def writeCSVToHDFS(hdfsPath: String, df : DataFrame): Boolean = {
+  def writeCSVToHDFS(hdfsPath: String, fileType : String, df : DataFrame): Boolean = {
     println(s"${"-" * 25} SAVING FILE STARTED ${"-" * 25}")
 
     sparkSession.sparkContext.setLogLevel("ERROR")
@@ -52,7 +53,7 @@ object HDFSFileManager {
       // Write to final
       df.checkpoint(true)
         .write
-        .format("csv")
+        .format(fileType)
         .option("header", "true")
         .mode(SaveMode.Overwrite)
         .save(hdfsPath)
