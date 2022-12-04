@@ -46,7 +46,7 @@ Below, a few explications about the configuration classes implemented
 
 ### ArgConfig
 
-The argument parsed by scopt will be mapped as an object of this class. Here we define the default values for each argument.
+The argument parsed by scopt will be mapped into an object of this class. Here we define the default values for each argument.
 ``` 
 case class ArgConfig(uid: Long = -1,
                      action: String = "",
