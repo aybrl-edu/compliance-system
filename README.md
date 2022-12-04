@@ -18,12 +18,12 @@ Project : https://dark-cockroach-f61.notion.site/Examen-TP-ING3-444c3e5e00b74a06
 compliance-system 1.0
 Usage: compliance-system [options]
 
-  -u, --uid       <uid>          User id. Required if not read\
-  -a, --action    <action>       Action. Required if not read\
-  -i, --hdfsIP    <hdfsIP>       Custom hdfs ip, default : 192.168.1.2\
-  -p, --hdfsPath  <hdfsPath>     Custom data path, default : compliance_system/datacsv\
-  -f, --filename  <filename>     Custom filename without extension\
-  -r, --read      <read>         Read data\
+  -u, --uid       <uid>          User id. Required if not read
+  -a, --action    <action>       Action. Required if not read
+  -i, --hdfsIP    <hdfsIP>       Custom hdfs ip, default : 192.168.1.2
+  -p, --hdfsPath  <hdfsPath>     Custom data path, default : compliance_system/datacsv
+  -f, --filename  <filename>     Custom filename without extension
+  -r, --read      <read>         Read data
   -t, --fileType  <fileType>     File type -> {CSV (Default) | PARQUET}
 ```
 
