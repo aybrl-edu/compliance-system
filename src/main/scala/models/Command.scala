@@ -5,8 +5,8 @@ import services.{DeleteInfoService, HashInfoService, IService}
 class Command {
   var service : IService = null
   var uid : Long = 0
-  var hdfsIP : String = "172.31.252.170"
-  var hdfsFilePath : String = "compliance_system/datacsv"
+  var hdfsIP : String = ""
+  var hdfsFilePath : String = ""
   var fileName : String = ""
   var fileType : String = "csv"
   var readOnly : Boolean = false
