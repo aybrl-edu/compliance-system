@@ -1,7 +1,7 @@
 package helpers
 
 import configs.{ArgConfig, ConfigElement, DataFileConfig}
-import models.{Command}
+import models.Command
 import org.apache.spark.sql.types.{BooleanType, DataType, DateType, DoubleType, FloatType, IntegerType, LongType, StringType, StructField, StructType}
 import scopt.{OParser, OParserBuilder}
 import spray.json._
@@ -19,21 +19,19 @@ object Helper {
       programName("compliance-system"),
       head("compliance-system", "1.0"),
       opt[Long]('u', "uid")
-        .required()
         .valueName("<uid>")
         .action((x, c) => c.copy(uid = x))
-        .text("user id is required"),
+        .text("user id is required if not read"),
 
       opt[String]('a', "action")
-        .required()
         .valueName("<delete> | <hash>")
         .action((x, c) => c.copy(action = x))
-        .text("action is required"),
+        .text("action is required if not read"),
 
       opt[String]('i', "hdfsIP")
         .valueName("<hdfsIP>")
         .action((x, c) => c.copy(hdfsIP = x))
-        .text("custom hdfs ip, default : 172.31.252.170"),
+        .text("custom hdfs ip, default : 192.168.1.2"),
 
       opt[String]('p', "hdfsPath")
         .valueName("<hdfsPath>")
@@ -54,6 +52,7 @@ object Helper {
         val allowedActions = List("delete", "hash")
         if (!allowedActions.contains(c.action)) failure("action must be in ['delete', 'hash']")
         success
+
       })
     )
   }
@@ -63,6 +62,9 @@ object Helper {
 
     OParser.parse(parser, args, ArgConfig()) match {
       case Some(config) =>
+        if(!config.read && (config.uid == -1 || config.action == "")) {
+          return Failure(new Throwable("program args invalid: no command was specified"))
+        }
         command.setService(config.action)
         command.setUID(config.uid)
         command.setReadOnly(config.read)

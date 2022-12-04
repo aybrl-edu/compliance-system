@@ -17,7 +17,7 @@ object Main {
         else println("Command was not executed! Halting...")
       }
       case Failure(exception) =>
-        println("Malformed command!")
+        println(s"Command malformed error => ${exception.getMessage}")
     }
   }
 }
