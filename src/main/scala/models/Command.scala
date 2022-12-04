@@ -64,7 +64,7 @@ class Command {
 
   def getHDFSUrlFormatted : String = {
     var path = String.format("hdfs://%s:9000/%s/", hdfsIP, hdfsFilePath)
-    if(fileName != "") path = path + s"${fileName}/.${fileType}"
+    if(fileName != "") path = path + s"${fileName}.${fileType}"
     path
   }
 
