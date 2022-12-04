@@ -41,7 +41,7 @@ object Helper {
       opt[String]('f', "filename")
         .valueName("<filename>")
         .action((x, c) => c.copy(filename = x))
-        .text("custom filename, default : UserDataSample.csv"),
+        .text("custom filename without extension"),
 
       opt[Boolean]('r', "read")
         .valueName("<read>")
@@ -76,9 +76,9 @@ object Helper {
         command.setService(config.action)
         command.setUID(config.uid)
         command.setReadOnly(config.read)
-        if(config.hdfsIP != null) command.setHDFS_IP(config.hdfsIP)
-        if(config.hdfsPath != null) command.setHdfsFilePath(config.hdfsPath)
-        if(config.filename != null) command.setFileName(config.filename)
+        command.setHDFS_IP(config.hdfsIP)
+        command.setHdfsFilePath(config.hdfsPath)
+        command.setFileName(config.filename)
         Success(command)
       case _ =>
         Failure(new Throwable("program args invalid"))
