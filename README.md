@@ -58,7 +58,7 @@ case class ArgConfig(uid: Long = -1,
 ```
 ### JsonProtocol
 
-The Config JSON file parsed by spray-json will be mapped as an object of this class. This class is used to provide the format in which the json string should be processed
+The Config JSON file parsed by spray-json will be mapped into an object of this class. This class is used to provide the format in which the json string should be processed
   
 ``` 
 object JsonProtocol extends DefaultJsonProtocol {
@@ -68,7 +68,7 @@ object JsonProtocol extends DefaultJsonProtocol {
 ```
 ### DataFileConfig
   
-After parsing the JSON, the data will be mapped to an object of this two classes. This classes will be used later to create a StructType Schema to validate the data when reading files from HDFS with Spark.
+After parsing the JSON, the data will be mapped into an object of this DataFileConfig class. These classes will be used later to create a StructType Schema to validate the data when reading files from HDFS with Spark.
   
 ``` 
 case class DataFileConfig[ConfigElement](columns : List[ConfigElement])
