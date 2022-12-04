@@ -13,11 +13,11 @@ object Main {
         val hasExecuted = Orchestrator.executeCommand(command)
 
         // print result
-        if(hasExecuted) println("--- \n command has been successfully executed! \n")
-        else println("--- \n command was not executed! Halting... \n")
+        if(hasExecuted) println("\n command has been successfully executed! \n")
+        else println("\n command was not executed! Halting... \n")
       }
       case Failure(exception) =>
-        println(s"--- \n command malformed error => ${exception.getMessage} \n")
+        println(s"\n command malformed error => ${exception.getMessage} \n")
     }
   }
 }
