@@ -7,17 +7,17 @@ object Main {
     // Parsing Command
     Helper.parseCommand(args) match {
       case Success(command) => {
-        println("Processing your command...")
+        println("\n Processing your command... \n")
 
         // execute
         val hasExecuted = Orchestrator.executeCommand(command)
 
         // print result
-        if(hasExecuted) println("Command has been successfully executed!")
-        else println("Command was not executed! Halting...")
+        if(hasExecuted) println("--- \n command has been successfully executed! \n")
+        else println("--- \n command was not executed! Halting... \n")
       }
       case Failure(exception) =>
-        println(s"Command malformed error => ${exception.getMessage}")
+        println(s"--- \n command malformed error => ${exception.getMessage} \n")
     }
   }
 }
