@@ -14,26 +14,27 @@ Project : https://dark-cockroach-f61.notion.site/Examen-TP-ING3-444c3e5e00b74a06
 ![image](https://user-images.githubusercontent.com/114408910/205469734-5c35393b-c7dd-4e1e-9c01-bb764aeb134b.png)
 
 ## Usage Manual
-
+```
 compliance-system 1.0
 Usage: compliance-system [options]
 
-  -u, --uid <uid> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; user id. Required if not read\
-  -a, --action &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; action. Required if not read\
-  -i, --hdfsIP <hdfsIP> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; custom hdfs ip, default : 192.168.1.2\
-  -p, --hdfsPath <hdfsPath> &nbsp;&nbsp;&nbsp;&nbsp; custom data path, default : compliance_system/datacsv\
-  -f, --filename <filename> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; custom filename without extension\
-  -r, --read <read> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; read data\
-  -t, --fileType <fileType> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; file type -> {CSV (Default) | PARQUET}\
+  -u, --uid       <uid>          User id. Required if not read\
+  -a, --action    <action>       Action. Required if not read\
+  -i, --hdfsIP    <hdfsIP>       Custom hdfs ip, default : 192.168.1.2\
+  -p, --hdfsPath  <hdfsPath>     Custom data path, default : compliance_system/datacsv\
+  -f, --filename  <filename>     Custom filename without extension\
+  -r, --read      <read>         Read data\
+  -t, --fileType  <fileType>     File type -> {CSV (Default) | PARQUET}
+```
 
 
 **Two Modes of usage:** reading and executing
 
-It reads the data from a file or a folder. The execution of an action (delete, hash) is only possible on one uid a time for now.
+It reads the data from a file or a folder. The execution of an action (delete, hash) is only possible on one uid at a time for now.
 
 ### Read data
 
-``` sbt "run -r <boolean> [-i <hdfs_ip>] [-p <hdfs_path>] [-f <filename>] [-t <filetype>]" ```
+``` sbt "run -r true [-i <hdfs_ip>] [-p <hdfs_path>] [-f <filename>] [-t <filetype>]" ```
 
 ### Execute an action
 
