@@ -41,11 +41,11 @@ It reads the data from a file or a folder. The execution of an action (delete, h
   
 ## Explications
 
-Below, a few explications concerning the configuration classes implemented
+Below, a few explications about the configuration classes implemented
 
 ### ArgConfig
 
-The argument parsed by scoped will be mapped as an object of this class. Here we define the default values for each argument.
+The argument parsed by scopt will be mapped as an object of this class. Here we define the default values for each argument.
 ``` 
 case class ArgConfig(uid: Long = -1,
                      action: String = "",
