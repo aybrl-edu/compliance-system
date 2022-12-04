@@ -38,3 +38,39 @@ It reads the data from a file or a folder. The execution of an action (delete, h
 ### Execute an action
 
 ``` sbt "run -a <delete | hash> -u <long> [-i <hdfs_ip>] [-p <hdfs_path>] [-f <filename>] [-t <filetype>]" ```
+  
+## Explications
+
+Below, a few explications concerning the configuration classes implemented
+
+### ArgConfig
+
+The argument parsed by scoped will be mapped as an object of this class. Here we define the default values for each argument.
+``` 
+case class ArgConfig(uid: Long = -1,
+                     action: String = "",
+                     hdfsIP: String = "192.168.1.2",
+                     hdfsPath: String = "compliance_system/datacsv",
+                     filename: String = "",
+                     fileType: String = "csv",
+                     read: Boolean = false)
+```
+### JsonProtocol
+
+The Config JSON file parsed by spray-json will be mapped as an object of this class. This class is used to provide the format in which the json string should be processed
+  
+``` 
+object JsonProtocol extends DefaultJsonProtocol {
+  implicit val configElement: RootJsonFormat[ConfigElement] = jsonFormat2(ConfigElement.apply)
+  implicit def dataFileConfig[ConfigElement : JsonFormat]: RootJsonFormat[DataFileConfig[ConfigElement]] = jsonFormat1(DataFileConfig.apply[ConfigElement])
+}
+```
+### DataFileConfig
+  
+After parsing the JSON, the data will be mapped to an object of this two classes. This classes will be used later to create a StructType Schema to validate the data when reading files from HDFS with Spark.
+  
+``` 
+case class DataFileConfig[ConfigElement](columns : List[ConfigElement])
+
+case class ConfigElement(name : String, typeOf : String)
+```
