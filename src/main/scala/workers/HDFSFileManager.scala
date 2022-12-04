@@ -20,8 +20,11 @@ object HDFSFileManager {
     .getOrCreate()
 
   def readCSVFromHDFS(hdfsPath: String): Try[DataFrame] = {
+    // Log
     println(s"${"-" * 25} READING FILE STARTED ${"-" * 25}")
+    println(s"${" " * 25} reading from ${hdfsPath} ${" " * 25}")
 
+    // Spark-session context
     sparkSession.sparkContext.setCheckpointDir("tmp")
     sparkSession.sparkContext.setLogLevel("ERROR")
 
