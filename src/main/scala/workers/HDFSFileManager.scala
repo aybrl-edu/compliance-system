@@ -22,7 +22,7 @@ object HDFSFileManager {
   def readCSVFromHDFS(hdfsPath: String): Try[DataFrame] = {
     // Log
     println(s"${"-" * 25} READING FILE STARTED ${"-" * 25}")
-    println(s"${" " * 12} reading from ${hdfsPath}")
+    println(s"${" " * 9} reading from ${hdfsPath}")
 
     // Spark-session context
     sparkSession.sparkContext.setCheckpointDir("tmp")
