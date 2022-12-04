@@ -16,14 +16,12 @@ class HashInfoService extends IService {
 
       //randomUUID().toString*/
     val rand = new scala.util.Random
-    val UUID = s"${uid}-${rand}"
+    val UUID : String = s"${uid}-${rand}"
 
-    val updateDF = df.withColumn("idClient",
-      when(col("idClient") === uid, uid)
-        .when(col("FirstName"), UUID)
-        .when(col("LastName"), UUID)
-        .when(col("Address"), UUID)
-      .otherwise(UUID))
+    val updateDF = df.withColumn("idClient", when(col("idClient") === uid, uid))
+      .withColumn("FirstName", when(col("idClient") === uid, UUID))
+      .withColumn("LastName", when(col("LastName") === uid, UUID))
+      .withColumn("Address", when(col("Address") === uid, UUID))
 
     updateDF
   }
