@@ -7,11 +7,11 @@ Project : https://dark-cockroach-f61.notion.site/Examen-TP-ING3-444c3e5e00b74a06
 
 ### 1. Class Diagram
 
-![image](https://user-images.githubusercontent.com/114408910/205469717-3765ee35-4bfd-40c6-a652-bbf98cbecd3e.png)
+![image](https://user-images.githubusercontent.com/114408910/205651094-750a654f-1d7c-493a-8b7b-70b36485e9b0.png)
 
 ### 2. Sequence Diagram
 
-![image](https://user-images.githubusercontent.com/114408910/205469734-5c35393b-c7dd-4e1e-9c01-bb764aeb134b.png)
+![image](https://user-images.githubusercontent.com/114408910/205651032-9fe2a636-de6d-4014-afcb-afbe831c0dab.png)
 
 ## Usage Manual
 ```
