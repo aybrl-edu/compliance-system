@@ -14,7 +14,7 @@ class HashInfoService extends IService {
     // Testing new approach
     val updateDS = ds.filter(user => user.idClient == uid)
       .map(user => {
-      user.firstName -> UUID
+        user.idClient -> uid
         user.firstName -> UUID
         user.lastName -> UUID
         user.address -> UUID
