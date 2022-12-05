@@ -11,7 +11,7 @@ Project : https://dark-cockroach-f61.notion.site/Examen-TP-ING3-444c3e5e00b74a06
 
 ### 2. Sequence Diagram
 
-![image](https://user-images.githubusercontent.com/114408910/205651032-9fe2a636-de6d-4014-afcb-afbe831c0dab.png)
+![image](https://user-images.githubusercontent.com/114408910/205651240-1623e79a-db5c-4f87-b1cd-464af93942db.png)
 
 ## Usage Manual
 ```
