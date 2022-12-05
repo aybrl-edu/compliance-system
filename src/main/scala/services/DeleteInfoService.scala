@@ -1,9 +1,10 @@
 package services
 
-import org.apache.spark.sql.DataFrame
+import models.UserDataInfo
+import org.apache.spark.sql.Dataset
 
 class DeleteInfoService extends IService {
-  override def execute(df: DataFrame, uid: Long): DataFrame = {
-    df.filter(df("idClient") =!= uid)
+  override def execute(ds: Dataset[UserDataInfo], uid: Long): Dataset[UserDataInfo] = {
+    ds.filter(row => row.idClient != uid)
   }
 }

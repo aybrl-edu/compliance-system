@@ -1,7 +1,8 @@
 package workers
 
 import helpers.Helper
-import org.apache.spark.sql.{DataFrame, SaveMode, SparkSession}
+import models.UserDataInfo
+import org.apache.spark.sql.{DataFrame, Dataset, SaveMode, SparkSession}
 
 import scala.util.{Failure, Success, Try}
 
@@ -43,19 +44,20 @@ object HDFSFileManager {
     }
   }
 
-  def writeCSVToHDFS(hdfsPath: String, fileType : String, df : DataFrame): Boolean = {
+  def writeCSVToHDFS(hdfsPath: String, fileType : String, ds : Dataset[UserDataInfo]): Boolean = {
     println(s"${"-" * 25} SAVING FILE STARTED ${"-" * 25}")
 
     sparkSession.sparkContext.setLogLevel("ERROR")
 
     try {
       // Write to final
-      df.checkpoint(true)
+      ds.checkpoint(true)
         .write
         .format(fileType)
         .option("header", "true")
         .mode(SaveMode.Overwrite)
         .save(hdfsPath)
+
       true
     }
     catch {

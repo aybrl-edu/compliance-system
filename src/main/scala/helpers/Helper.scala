@@ -1,7 +1,8 @@
 package helpers
 
 import configs.{ArgConfig, ConfigElement, DataFileConfig}
-import models.Command
+import models.{Command, UserDataInfo}
+import org.apache.spark.sql.{DataFrame, Dataset}
 import org.apache.spark.sql.types.{BooleanType, DataType, DateType, DoubleType, FloatType, IntegerType, LongType, StringType, StructField, StructType}
 import scopt.{OParser, OParserBuilder}
 import spray.json._
@@ -111,6 +112,11 @@ object Helper {
       structSeq = structSeq :+ StructField(configElement.name, stringToType(configElement.typeOf), nullable = false)
     })
     StructType(structSeq)
+  }
+
+  def dataframeToDataset(df : DataFrame): Dataset[UserDataInfo] = {
+    val encoder = org.apache.spark.sql.catalyst.encoders.ExpressionEncoder[UserDataInfo]
+    df.as(encoder)
   }
 }
 

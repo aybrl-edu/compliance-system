@@ -1,5 +1,6 @@
+import helpers.Helper
 import models.Command
-import org.apache.spark.sql.DataFrame
+import org.apache.spark.sql.{DataFrame, Dataset}
 import workers.HDFSFileManager
 
 import scala.util.{Failure, Success}
@@ -10,16 +11,19 @@ object Orchestrator {
       case Success(df: DataFrame) =>
         df.show()
 
+        // Transform df to ds
+        val ds = Helper.dataframeToDataset(df)
+
         if(command.isReadOnly) return true
 
         // Command execute
-        val updatedDF = command.getService.execute(df, command.getUID)
+        val updatedDS = command.getService.execute(ds, command.getUID)
 
         try {
           // Saving changes
           val hasWritten : Boolean = HDFSFileManager.writeCSVToHDFS(command.getHDFSUrlFormatted,
             command.getFileType,
-            updatedDF)
+            updatedDS)
 
           if (!hasWritten) println("Exception while saving data to HDFS")
           hasWritten

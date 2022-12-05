@@ -1,8 +1,9 @@
 package services
 
-import org.apache.spark.sql.DataFrame
+import models.UserDataInfo
+import org.apache.spark.sql.Dataset
 
 trait IService {
-  def execute(df : DataFrame, uid : Long): DataFrame
+  def execute(df : Dataset[UserDataInfo], uid : Long): Dataset[UserDataInfo]
 }
 
