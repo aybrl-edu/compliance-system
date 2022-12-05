@@ -66,4 +66,8 @@ object HDFSFileManager {
         false
     }
   }
+
+  def getSparkSession : SparkSession = {
+    sparkSession
+  }
 }
