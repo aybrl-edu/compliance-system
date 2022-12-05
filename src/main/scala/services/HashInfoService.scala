@@ -11,7 +11,7 @@ class HashInfoService extends IService {
 
     import workers.HDFSFileManager.sparkSession.implicits._
 
-    val updateDS = ds.filter(_.idClient == uid)
+    val updateDS = ds.filter(row => row.idClient == uid)
       .map(user => {
         user.firstName -> UUID
         user.lastName -> UUID
