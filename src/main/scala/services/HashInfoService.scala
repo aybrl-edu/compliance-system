@@ -12,18 +12,20 @@ class HashInfoService extends IService {
     import workers.HDFSFileManager.sparkSession.implicits._
 
     // Testing new approach
-    /*val update = ds.filter(user => user.idClient == uid)
+    val updateDS = ds.filter(user => user.idClient == uid)
       .map(user => {
+      user.firstName -> UUID
         user.firstName -> UUID
         user.lastName -> UUID
         user.address -> UUID
-      }).as[UserDataInfo]*/
+      }).as[UserDataInfo]
 
-    val updateDS : Dataset[UserDataInfo] = ds.withColumn("idClient", when(col("idClient") === uid, uid))
+    /*val updateDS : Dataset[UserDataInfo] = ds
+      .withColumn("idClient", when(col("idClient") === uid, uid).otherwise(col("idClient")))
       .withColumn("FirstName", when(col("idClient") === uid, UUID).otherwise(col("FirstName")))
       .withColumn("LastName", when(col("idClient") === uid, UUID).otherwise(col("LastName")))
       .withColumn("Address", when(col("idClient") === uid, UUID).otherwise(col("Address")))
-      .as[UserDataInfo]
+      .as[UserDataInfo]*/
 
     updateDS
   }
